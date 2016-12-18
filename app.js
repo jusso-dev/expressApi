@@ -5,11 +5,11 @@ const morgan      = require('morgan');
 const mongoose    = require('mongoose');
 
 const config = require('./conf');
-const User   = require('./models/users');
 router = express.Router();
 const port = process.env.PORT || 8080;
 mongoose.connect(config.database);
 app.set('superSecret', config.secret);
+app.use(morgan('dev'));
     
 // =======================
 // configuration =========
@@ -29,12 +29,6 @@ const Roster = mongoose.model('Roster', RosterSchema);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use('/api', router);
-
-app.use(express.static('css'));
-app.use(express.static('js'));
-
-app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
   try {
